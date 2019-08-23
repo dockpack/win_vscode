@@ -1,0 +1,8 @@
+---
+
+vscode_distribution: vscode
+vscode_extensions:
+  - vscode-editorconfig
+  - vscode-gitlens
+  - vscode-yaml
+  - vscode-ansible

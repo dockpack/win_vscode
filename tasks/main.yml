@@ -1,0 +1,25 @@
+- name: Install_chocolatey
+  win_chocolatey:
+    name: "chocolatey"
+
+#  https://github.com/ansible/ansible/issues/53971
+- name: Downgrade chocolatey
+  win_shell: |
+    choco.exe install -y --version 0.10.11 --allow-downgrade chocolatey
+
+- name: Install vscode
+  win_chocolatey:
+    name: "{{ vscode_distribution }}"
+    state: present
+  register: download_vscode
+  until: download_vscode is succeeded
+  retries: 10
+  delay: 2
+
+- name: Install vscode
+  win_chocolatey:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ vscode_extensions }}"
+  retries: 10
+  delay: 2
